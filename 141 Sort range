@@ -1,0 +1,57 @@
+using namespace std;
+#include <bits/stdc++.h>
+
+#define fast                      \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define ll long long
+#define int long long
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define For(j) for (int i = 0; i < j; i++)
+#define endl '\n'
+#define dd(b, a) cout << fixed << setprecision(b) << a << endl;
+#define all(s) s.begin(), s.end()
+const int N = 2e5+5;
+
+void solve () {
+    int x,s,in,t;
+    cin >> x >> s >> in;
+    deque<int> v,k;
+    priority_queue<int,vector<int>,greater<int>> q;
+    while (x--)
+    {
+        cin>>t;
+        v.push_back(t);
+    }
+    while (s--)
+    {
+        q.push(v.front());
+        v.pop_front();
+    }
+    while (!v.empty()) {
+        k.push_back(q.top());
+        q.pop();
+        q.push(v.front());
+        v.pop_front();
+    }
+    while(!q.empty()){
+        k.push_back(q.top());
+        q.pop();
+    }
+    cout<<k[in-1];
+    
+    
+ 
+    
+}
+signed main() {
+    fast;
+    int t = 1;
+    cin>>t;
+    while (t--) {
+        solve();
+        cout << endl;
+    }
+}
