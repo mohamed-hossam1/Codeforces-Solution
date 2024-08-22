@@ -1,0 +1,84 @@
+using namespace std;
+#include <bits/stdc++.h>
+ 
+#define fast                      \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define ll long long
+#define int long long
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define For(j) for (int i = 0; i < j; i++)
+#define endl '\n'
+#define dd(b, a) cout << fixed << setprecision(b) << a << endl;
+#define all(s) s.begin(), s.end()
+
+vector<pair<int,int>>v;
+int bs(int i,int val)
+{
+    int l=i+1;
+    int r=v.size()-1;
+ 
+    int last=0;
+    while(l<=r)
+    {
+        int mid=(l+r)/2;
+        if (v[mid].first<=val){l=mid+1;last=mid;}
+        else {r=mid-1;}
+    }
+    return last;
+}
+void solve()
+{
+    int n,m,d;
+    cin>>n>>m>>d;
+    int ans=0;
+    d++;
+    for (int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        v.push_back({x,i});
+    }
+    sort(v.begin(),v.end());
+    int maxi=-1;
+    for (int i=0;i<n;i++)
+    {
+        maxi=max(maxi,bs(i,v[i].first+d-1)-i+1);
+    }
+
+    cout<<maxi<<endl;
+    for (int i=0;i<n;i++)
+    {
+        v[v[i].second].first=(i%maxi)+1;
+    }
+    for (int i=0;i<n;i++)
+    {
+        cout<<v[i].first<<" ";
+    }
+
+
+
+    
+}   
+    
+signed main()
+{
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    //     freopen("output.txt", "w", stdout);
+    // #endif
+    fast;
+ 
+    int t = 1;
+    // cin >> t;
+    while (t--)
+    {
+        solve();
+        if (t)
+            cout << endl;
+    }
+}
+
+ 
