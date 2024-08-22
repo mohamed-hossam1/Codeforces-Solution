@@ -1,0 +1,84 @@
+using namespace std;
+#include <bits/stdc++.h>
+
+#define fast                      \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define ll long long
+#define int long long
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define For(j) for (int i = 0; i < j; i++)
+#define endl '\n'
+#define dd(b, a) cout << fixed << setprecision(b) << a << endl;
+#define all(s) s.begin(), s.end()
+const int N = 2e5+5;
+
+int s2(int x,vector<pair<int,int>> v1,vector<pair<int,int>> v2){
+    while (true)
+    {
+        int k=-1,mi;
+        for (int i = 0; i < v1.size(); i++)
+        {
+            if(x>=v1[i].first&&k<=v1[i].second){
+                k = v1[i].second;
+                mi = i;
+            }
+        }
+        if(k==-1)break;
+        x+= k;
+        v1[mi].second = -1,k=-1;
+        for (int i = 0; i < v2.size(); i++)
+        {
+            if(x>=v2[i].first&&k<=v2[i].second){
+                k = max(k,v2[i].second);
+                mi = i;
+            }
+        }
+        if(k==-1)break;
+        x+= k;
+        v2[mi].second = -1;
+    }
+    return x;
+}
+void solve () {
+    int x,k;
+    cin>>x>>k;
+    vector<pair<int,int>> v1,v2;
+    int t,h,m;
+    For(x){
+        cin>>t>>h>>m;
+        if(t==0)v1.push_back({h,m});
+        else v2.push_back({h,m});
+    }
+    int l = s2(k,v1,v2),j=s2(k,v2,v1);
+    k=max(l,j);
+    int w=0,e=0;
+    for (int i = 0; i < v1.size(); i++){
+        if(v1[i].first<=k)w++;
+    }
+    for (int i = 0; i < v2.size(); i++){
+        if(v2[i].first<=k)e++;
+    }
+    // cout<<e<<" "<<w;
+    int sum =0;
+    if(l<j)swap(w,e);
+    while (true)
+    {
+        if(w)sum++,w--;
+        else break;
+        if(e)sum++,e--;
+        else break;
+    }
+    cout<<sum;
+}
+signed main() {
+    fast;
+    int t = 1;
+    // cin>>t;
+    while (t--) {
+        solve();
+        // cout << endl;
+    }
+}
