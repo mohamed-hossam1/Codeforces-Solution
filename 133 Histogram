@@ -1,0 +1,72 @@
+using namespace std;
+#include <bits/stdc++.h>
+
+#define fast                      \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define ll long long
+#define int long long
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define For(j) for (int i = 0; i < j; i++)
+#define endl '\n'
+#define dd(b, a) cout << fixed << setprecision(b) << a << endl;
+#define all(s) s.begin(), s.end()
+const int N=3e5+7;
+
+void solve () {
+    int x;
+    cin>>x;
+    vector<int> v(x+2);
+    for (int i = 1; i <= x; i++)
+        cin>>v[i];
+    v[x+1]=-1;
+    v[0]=-1;
+    int a[x+1]{0},b[x+1]{};
+    stack<int> s1,s2;
+    s1.push(x+1);
+    for (int i = x; i > 0; i--)
+    {
+        while (v[i]<=v[s1.top()])
+        {
+            s1.pop();
+        }
+        a[i]=s1.top();
+        s1.push(i);
+        
+    }
+    s2.push(0);
+    for (int i = 1; i <= x; i++)
+    {
+        while (v[i]<=v[s2.top()])
+        {
+            s2.pop();
+        }
+        b[i]=s2.top();
+        s2.push(i);
+        
+    }
+    int sum=0,t=0;
+    for (int i = 1; i <= x; i++){
+        t = (a[i]-i)+(i-b[i])-1;
+        sum = max(sum,t*v[i]);
+    }
+    cout<<sum;
+
+
+    
+    
+
+
+}
+
+signed main() {
+    fast;
+    int t = 1;
+    cin>>t;
+    while (t--) {
+        solve();
+        cout << endl;
+    }
+}
