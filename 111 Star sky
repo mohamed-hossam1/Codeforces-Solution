@@ -1,0 +1,52 @@
+using namespace std;
+#include <bits/stdc++.h>
+
+#define fast                      \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+#define ll long long
+#define int long long
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define For(j) for (int i = 0; i < j; i++)
+#define endl '\n'
+#define dd(b, a) cout << fixed << setprecision(b) << a << endl;
+#define all(s) s.begin(), s.end()
+int N=1e6+7;
+
+void solve(){
+    int n,q,c,xs,ys,s;
+    int arr[11][105][105]{};
+    cin >> n >> q >> c;
+    while (n--)
+    {
+        cin>>xs>>ys>>s;
+        for (int i = 0; i < 11; i++){
+            arr[i][xs][ys] += (s+i)%(c+1);
+        }
+    }
+    int pre[11][105][105]{};
+    for (int l = 0; l < 11; l++)
+        for (int i = 1; i <= 103; ++i)
+            for (int j = 1; j <= 103; ++j) 
+                pre[l][i][j] = arr[l][i][j] + pre[l][i-1][j] + pre[l][i][j-1] - pre[l][i-1][j-1];
+
+    while (q--)
+    {
+        int t, x1, y1, x2, y2;
+        cin >> t >> x1 >> y1 >> x2 >> y2;
+        t%=(c+1);
+        cout << pre[t][x2][y2] - pre[t][x1-1][y2] - pre[t][x2][y1-1] + pre[t][x1-1][y1-1]<< endl;        
+    }
+    
+}
+signed main() {
+    fast;
+    int t = 1;
+    // cin>>t;
+    while (t--) {
+        solve();
+        // cout << endl;
+    }
+}
